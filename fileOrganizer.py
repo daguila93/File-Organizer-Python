@@ -1,4 +1,3 @@
-from os import makedirs, mkdir, name, path
 from pathlib import Path
 import pathlib
 
@@ -18,6 +17,8 @@ def fileOrganizer(currentPath, scriptName):
             fileExtension = child.suffix.replace('.', '')
             fileFullpath = pathlib.Path(currentPath).joinpath(pathlib.Path(child).name)
             fileDestination = pathlib.Path(currentPath).joinpath(fileExtension, pathlib.Path(child).name)
-            pathlib.Path.rename(fileFullpath, fileDestination)
+            #if the file already exists on destination, it will not move.
+            if(not fileDestination.is_file()):
+                pathlib.Path.rename(fileFullpath, fileDestination)
 
 fileOrganizer(currentPath, scriptName)
